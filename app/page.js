@@ -4,7 +4,7 @@ const page = () => {
   return (
     <div>
       <div>
-        stoxy
+        stock manager
       </div>
     </div>
   )
