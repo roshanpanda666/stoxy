@@ -2,9 +2,9 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      <div>
-        stock manager
+    <div className='flex justify-center items-center h-screen'>
+      <div className='text-white text-3xl font-mono'>
+        Inventory management system 
       </div>
     </div>
   )
