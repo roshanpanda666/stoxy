@@ -4,7 +4,7 @@ const page = () => {
   return (
     <div className='flex justify-center items-center h-screen'>
       <div className='text-white text-3xl font-mono'>
-        Inventory management system 
+        Inventory stock management system 
       </div>
     </div>
   )
