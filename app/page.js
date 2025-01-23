@@ -1,7 +1,38 @@
+"use client"
+
 import Header from '@/components/header'
 import React from 'react'
+import { useState } from 'react'
+import { useRef } from 'react'
+
 
 const page = () => {
+
+  const slugref=useRef()
+  const quantityref=useRef()
+  const priceref=useRef()
+
+
+const addProduct=()=>{
+
+  const slugafter=slugref.current.value
+  const quantityafter=quantityref.current.value
+  const priceafter=priceref.current.value
+
+  alert(slugafter)
+  alert(quantityafter)
+  alert(priceafter)
+
+  
+
+}
+
+const clearinput=()=>{
+  slugref.current.value=("")
+  priceref.current.value=("")
+  quantityref.current.value=("")
+}
+
   return (
     <div>
       <Header></Header>
@@ -30,25 +61,29 @@ const page = () => {
       {/* Add product form */}
       <div className='flex justify-center items-center flex-col mt-8'>
         <div className='w-[95vw]'>
-          <div>Product Name</div>
+          <div>Slug</div>
           <div>
-            <input type="text" className='w-[95vw] border-2 border-blue-300 bg-black text-white' />
+            <input ref={slugref} type="text" className='w-[95vw] border-2 border-blue-300 bg-black text-white' />
           </div>
         </div>
         <div className='w-[95vw] mt-5'>
           <div>Quantity</div>
           <div>
-            <input type="text" className='w-[95vw] border-2 border-blue-300 bg-black text-white' />
+            <input ref={quantityref} type="text" className='w-[95vw] border-2 border-blue-300 bg-black text-white' />
           </div>
         </div>
         <div className='w-[95vw] mt-5'>
           <div>Price</div>
           <div>
-            <input type="text" className='w-[95vw] border-2 border-blue-300 bg-black text-white' />
+            <input ref={priceref} type="text" className='w-[95vw] border-2 border-blue-300 bg-black text-white' />
           </div>
         </div>
         <div>
-          <button className='border-blue-300 border-2 bg-blue-300 text-black w-28 mt-5'>Add Product</button>
+          <button onClick={addProduct} className='border-blue-300 border-2 bg-blue-300 text-black w-28 mt-5'>Add Product</button>
+        </div>
+
+        <div>
+          <button onClick={clearinput} className='  bg-red-400 text-black w-28 mt-5'>clear inputs</button>
         </div>
       </div>
 

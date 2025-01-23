@@ -22,3 +22,24 @@ finally{
     await client.close()
 }
 }
+
+export async function POST(request){ 
+
+    let body=request.body
+
+    const uri=connectionSRT
+const client=new MongoClient(uri)
+try{
+    const database = client.db('stock')
+    const inventory = database.collection('inventory')
+
+    const query={}
+    const product= await inventory.insertOne(body)
+    console.log(product);
+    return NextResponse.json({allproducts})
+
+}
+finally{
+    await client.close()
+}
+}
