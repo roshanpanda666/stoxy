@@ -13,17 +13,37 @@ const page = () => {
   const priceref=useRef()
 
 
-const addProduct=()=>{
+const addProduct=async()=>{
 
-  const slugafter=slugref.current.value
-  const quantityafter=quantityref.current.value
-  const priceafter=priceref.current.value
+    const slugafter=slugref.current.value
+    const quantityafter=quantityref.current.value
+    const priceafter=priceref.current.value
 
-  alert(slugafter)
-  alert(quantityafter)
-  alert(priceafter)
+    alert(slugafter)
+    alert(quantityafter)
+    alert(priceafter)
 
-  
+    // write the post method and push the data 
+    let response =await fetch("/api/productsapi",{
+      method:"POST",
+      headers:{
+        "Content-type":"application/json"
+      },
+      body:JSON.stringify({
+        brand:slugafter,
+        price:priceafter,
+        quantity:quantityafter
+      })
+    })
+
+    const result= await response.json()
+    if(result.success){
+      alert("data added successfully")
+
+    }
+    else{
+      alert("failed to add data")
+    }
 
 }
 
