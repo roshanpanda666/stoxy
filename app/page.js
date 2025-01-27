@@ -42,75 +42,65 @@ const page = () => {
   };
 
   return (
-    <div>
+    <div className="p-4 sm:p-8">
       <Header />
 
       {/* Search bar with dropdown */}
-      <div className="flex justify-center items-center flex-col mt-5">
-        <div className="w-[95vw] flex gap-4">
-          {/* Dropdown */}
-          <select className="border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md">
-            <option value="all">All</option>
-            <option value="category">Category</option>
-          </select>
+      <div className="flex flex-col sm:flex-row justify-center items-center mt-5 gap-4">
+        <select className="border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md w-full sm:w-auto">
+          <option value="all">All</option>
+          <option value="category">Category</option>
+        </select>
 
-          {/* Search input */}
-          <input
-            type="text"
-            placeholder="Search..."
-            className="flex-grow border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md"
-          />
-          <button className="border-2 border-blue-300 bg-blue-300 text-black px-5 py-2 rounded-md">
-            Search
-          </button>
-        </div>
+        <input
+          type="text"
+          placeholder="Search..."
+          className="flex-grow border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md w-full sm:w-auto"
+        />
+        <button className="border-2 border-blue-300 bg-blue-300 text-black px-5 py-2 rounded-md w-full sm:w-auto">
+          Search
+        </button>
       </div>
 
       {/* Add product form */}
-      <div className="flex justify-center items-center flex-col mt-8">
-        <div className="w-[95vw]">
-          <div>Slug</div>
-          <div>
-            <input
-              ref={slugref}
-              type="text"
-              className="w-[95vw] border-2 border-blue-300 bg-black text-white"
-            />
-          </div>
+      <div className="flex flex-col items-center mt-8 gap-5">
+        <div className="w-full sm:w-[95vw]">
+          <div className="mb-2">Slug</div>
+          <input
+            ref={slugref}
+            type="text"
+            className="w-full border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md"
+          />
         </div>
-        <div className="w-[95vw] mt-5">
-          <div>Quantity</div>
-          <div>
-            <input
-              ref={quantityref}
-              type="text"
-              className="w-[95vw] border-2 border-blue-300 bg-black text-white"
-            />
-          </div>
+
+        <div className="w-full sm:w-[95vw]">
+          <div className="mb-2">Quantity</div>
+          <input
+            ref={quantityref}
+            type="text"
+            className="w-full border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md"
+          />
         </div>
-        <div className="w-[95vw] mt-5">
-          <div>Price</div>
-          <div>
-            <input
-              ref={priceref}
-              type="text"
-              className="w-[95vw] border-2 border-blue-300 bg-black text-white"
-            />
-          </div>
+
+        <div className="w-full sm:w-[95vw]">
+          <div className="mb-2">Price</div>
+          <input
+            ref={priceref}
+            type="text"
+            className="w-full border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md"
+          />
         </div>
-        <div>
+
+        <div className="flex gap-4 w-full sm:w-auto justify-center">
           <button
             onClick={addProduct}
-            className="border-blue-300 border-2 bg-blue-300 text-black w-28 mt-5"
+            className="border-2 border-blue-300 bg-blue-300 text-black w-full sm:w-28 py-2 rounded-md"
           >
             Add Product
           </button>
-        </div>
-
-        <div>
           <button
             onClick={clearinput}
-            className="bg-red-400 text-black w-28 mt-5"
+            className="bg-red-400 text-black w-full sm:w-28 py-2 rounded-md"
           >
             Clear Inputs
           </button>
@@ -118,8 +108,8 @@ const page = () => {
       </div>
 
       {/* Current Stock */}
-      <div className="bg-slate-900 mt-8">
-        <div className="text-3xl mb-10 mt-7 text-center">Current Stock</div>
+      <div className="bg-slate-900 mt-8 px-4 py-6 rounded-md">
+        <div className="text-2xl sm:text-3xl mb-5 text-center">Current Stock</div>
         <ProductList />
       </div>
     </div>
