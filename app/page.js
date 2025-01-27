@@ -1,6 +1,7 @@
 "use client"
 
 import Header from '@/components/header'
+import ProductList from '@/components/product'
 import React from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
@@ -13,39 +14,30 @@ const page = () => {
   const priceref=useRef()
 
 
-const addProduct=async()=>{
+  const addProduct = async () => {
+    const slugafter = slugref.current.value;
+    const quantityafter = parseInt(quantityref.current.value, 10); // Convert to number
+    const priceafter = parseFloat(priceref.current.value); // Convert to number
 
-    const slugafter=slugref.current.value
-    const quantityafter=quantityref.current.value
-    const priceafter=priceref.current.value
+    let response = await fetch("/api/productsapi", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            brand: slugafter,
+            price: priceafter,
+            quantity: quantityafter
+        })
+    });
 
-    alert(slugafter)
-    alert(quantityafter)
-    alert(priceafter)
-
-    // write the post method and push the data 
-    let response =await fetch("/api/productsapi",{
-      method:"POST",
-      headers:{
-        "Content-type":"application/json"
-      },
-      body:JSON.stringify({
-        brand:slugafter,
-        price:priceafter,
-        quantity:quantityafter
-      })
-    })
-
-    const result= await response.json()
-    if(result.success){
-      alert("data added successfully")
-
+    const result = await response.json();
+    if (result.success) {
+        alert("Data added successfully");
+    } else {
+        alert("Failed to add data");
     }
-    else{
-      alert("failed to add data")
-    }
-
-}
+};
 
 const clearinput=()=>{
   slugref.current.value=("")
@@ -112,27 +104,7 @@ const clearinput=()=>{
         <div className='text-3xl w-[90vw] mt-7'>
           Current Stock
         </div>
-        <div className='mt-5'>
-          <div className='flex justify-center item-center gap-72 mt-10'>
-            <div className='text-lg w-60 text-center border-l-2 border-r-2'>Product Name</div>
-            <div className='text-lg w-60 text-center border-l-2 border-r-2'>Quantity</div>
-            <div className='text-lg w-60 text-center border-l-2 border-r-2'>Price</div>
-          </div>
-          <div className='flex justify-center items-center'>
-          <div className='w-[95vw] border-[0.9px] border-blue-300 mt-7'></div>
-          </div>
-
-          <div className='flex justify-center item-center gap-72 mt-7'>
-            <div className='text-lg w-60 text-center border-l-2 border-r-2'>Samsung Galaxy S21</div>
-            <div className='text-lg w-60 text-center border-l-2 border-r-2'>300000</div>
-            <div className='text-lg w-60 text-center border-l-2 border-r-2'>30000</div>
-          </div>
-          <div className='flex justify-center item-center gap-72 mt-7'>
-            <div className='text-lg w-60 text-center border-l-2 border-r-2'>Samsung Galaxy S22 FE</div>
-            <div className='text-lg w-60 text-center border-l-2 border-r-2'>300000</div>
-            <div className='text-lg w-60 text-center border-l-2 border-r-2'>40000</div>
-          </div>
-        </div>
+        <ProductList></ProductList>
       </div>
     </div>
   )

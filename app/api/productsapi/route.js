@@ -1,45 +1,55 @@
-// api routs for crud operation here 
-
 const { connectionSRT } = require("@/app/lib/d");
 const { MongoClient } = require("mongodb");
 const { NextResponse } = require("next/server");
 
-export async function GET(request){
+export async function GET(request) {
+    const uri = connectionSRT;
+    const client = new MongoClient(uri);
 
-    const uri=connectionSRT
-const client=new MongoClient(uri)
-try{
-    const database = client.db('stock')
-    const inventory = database.collection('inventory')
+    try {
+        const database = client.db('stock');
+        const inventory = database.collection('inventory');
 
-    const query={}
-    const allproducts= await inventory.find(query).toArry()
-    console.log(allproducts);
-    return NextResponse.json({allproducts})
+        const allProducts = await inventory.find({}).toArray();
 
+        console.log("Fetched products:", allProducts);
+
+        // Return success and result structure
+        return NextResponse.json({ success: true, result: allProducts });
+
+    } catch (error) {
+        console.error("Error in GET:", error);
+
+        // Return error response
+        return NextResponse.json({ success: false, message: "Failed to fetch products" });
+    } finally {
+        await client.close();
+    }
 }
-finally{
-    await client.close()
-}
-}
 
-export async function POST(request){ 
+export async function POST(request) { 
+    const body = await request.json();
 
-    let body=request.body
+    const uri = connectionSRT;
+    const client = new MongoClient(uri);
 
-    const uri=connectionSRT
-const client=new MongoClient(uri)
-try{
-    const database = client.db('stock')
-    const inventory = database.collection('inventory')
+    try {
+        const database = client.db('stock');
+        const inventory = database.collection('inventory');
 
-    const query={}
-    const product= await inventory.insertOne(body)
-    console.log(product);
-    return NextResponse.json({allproducts})
+        const product = await inventory.insertOne(body);
 
-}
-finally{
-    await client.close()
-}
+        console.log("Inserted product:", product);
+
+        // Return success response
+        return NextResponse.json({ success: true, product });
+
+    } catch (error) {
+        console.error("Error in POST:", error);
+
+        // Return error response
+        return NextResponse.json({ success: false, message: "Failed to add product" });
+    } finally {
+        await client.close();
+    }
 }
