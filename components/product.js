@@ -52,7 +52,7 @@ const ProductList = () => {
                         </div>
                     ))
                 ) : (
-                    <div>No products available</div> // Fallback message
+                    <div className='text-center'>No products available</div> // Fallback message
                 )
             }
         </div>
