@@ -9,6 +9,7 @@ const getProducts = async () => {
         });
 
         let data = await response.json();
+        console.log(data);
 
         if (data.success) {
             return data.result; // Expected to be an array of products
