@@ -1,7 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-
-// Corrected the function name and ensured it always returns an array.
+import React, { useEffect, useState } from 'react'// Corrected the function name and ensured it always returns an array.
 const getProducts = async () => {
     try {
         let response = await fetch("/api/productsapi", {
@@ -32,23 +30,29 @@ const ProductList = () => {
         };
         loadProducts();
     }, []);
+    
 
     return (
         <div>
-            <div className='flex justify-center items-center text-2xl gap-4 sm:gap-8 md:gap-[25vw] text-center'>
+            <div className='flex justify-center items-center text-2xl gap-4 sm:gap-8 md:gap-[5vw] text-center'>
                 <div className='w-full sm:w-52 border-2 border-blue-300'>brand</div>
                 <div className='w-full sm:w-52 border-2 border-blue-300'>price</div>
                 <div className='w-full sm:w-52 border-2 border-blue-300'>quantity</div>
+                <div className='w-full sm:w-52'></div>
+                <div className='w-full sm:w-52'></div>
             </div>
             {
                 // Add a check to ensure productlist is an array before mapping
                 Array.isArray(productlist) && productlist.length > 0 ? (
                     productlist.map((item, index) => (
                         <div key={index}>
-                            <div className='flex justify-center items-center gap-4 sm:gap-8 md:gap-[25vw] text-center'>
+                            <div className='flex justify-center items-center sm:gap-8 md:gap-[5vw] text-center'>
+                                
                                 <div className='w-full sm:w-52 mt-2'>{item.brand}</div>
                                 <div className='w-full sm:w-52 mt-2'>{item.price}</div>
-                                <div className='w-full sm:w-52 mt-2'>{item.quantity}</div>
+                                <div className='w-full sm:w-52 mt-2'>{item.quantity}</div>  
+                                <div className='w-full sm:w-52 mt-2 border-2 border-cyan-500'>delete</div> 
+                                <div className='w-full sm:w-52 mt-2 border-2 border-cyan-500'>edit</div>   
                             </div>
                         </div>
                     ))
