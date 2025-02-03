@@ -5,9 +5,7 @@ import ProductList from '@/components/product';
 import React, { useRef, useState } from 'react';
 
 const page = () => {
-
-  let[notifyy,notifyupdate]=useState("")
-
+  let [notifyy, notifyupdate] = useState("");
 
   const slugref = useRef();
   const quantityref = useRef();
@@ -32,16 +30,11 @@ const page = () => {
 
     const result = await response.json();
     if (result.success) {
-       notifyupdate("product added successfully") // Refresh the current page
-      setTimeout(function(){
+      notifyupdate("Product added successfully");
+      setTimeout(() => {
         window.location.reload();
-      },3000)
-     
-      
-      
-      
-    } 
-    else {
+      }, 3000);
+    } else {
       alert("Failed to add data");
     }
   };
@@ -53,18 +46,16 @@ const page = () => {
   };
 
   return (
-    <div className="p-4 sm:p-8">
+    <div className="p-4 sm:p-8 max-w-7xl mx-auto">
       <Header />
 
-      <div className='flex justify-center item-center mt-4'>
-        <div className='text-green-400'>
-          {notifyy}
-        </div>
+      <div className='flex justify-center items-center mt-4'>
+        <div className='text-green-400 text-center'>{notifyy}</div>
       </div>
 
       {/* Search bar with dropdown */}
-      <div className="flex flex-col sm:flex-row justify-center items-center mt-5 gap-4">
-        <select className="border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md w-full sm:w-auto">
+      <div className="flex flex-col sm:flex-row justify-center items-center mt-5 gap-4 w-full">
+        <select className="border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md w-full sm:w-40">
           <option value="all">All</option>
           <option value="category">Category</option>
         </select>
@@ -80,9 +71,9 @@ const page = () => {
       </div>
 
       {/* Add product form */}
-      <div className="flex flex-col items-center mt-8 gap-5">
-        <div className="w-full sm:w-[95vw]">
-          <div className="mb-2">Slug</div>
+      <div className="flex flex-col items-center mt-8 gap-5 w-full">
+        <div className="w-full sm:w-[80%]">
+          <label className="block mb-2 text-white">Slug</label>
           <input
             ref={slugref}
             type="text"
@@ -90,8 +81,8 @@ const page = () => {
           />
         </div>
 
-        <div className="w-full sm:w-[95vw]">
-          <div className="mb-2">Quantity</div>
+        <div className="w-full sm:w-[80%]">
+          <label className="block mb-2 text-white">Quantity</label>
           <input
             ref={quantityref}
             type="text"
@@ -99,8 +90,8 @@ const page = () => {
           />
         </div>
 
-        <div className="w-full sm:w-[95vw]">
-          <div className="mb-2">Price</div>
+        <div className="w-full sm:w-[80%]">
+          <label className="block mb-2 text-white">Price</label>
           <input
             ref={priceref}
             type="text"
@@ -108,16 +99,16 @@ const page = () => {
           />
         </div>
 
-        <div className="flex gap-4 w-full sm:w-auto justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
           <button
             onClick={addProduct}
-            className="border-2 border-blue-300 bg-blue-300 text-black w-full sm:w-28 py-2 rounded-md hover:border-green-400"
+            className="border-2 border-blue-300 bg-blue-300 text-black w-full sm:w-32 py-2 rounded-md hover:border-green-400"
           >
             Add Product
           </button>
           <button
             onClick={clearinput}
-            className="bg-red-400 text-black w-full sm:w-28 py-2 rounded-md"
+            className="bg-red-400 text-black w-full sm:w-32 py-2 rounded-md"
           >
             Clear Inputs
           </button>
@@ -125,8 +116,8 @@ const page = () => {
       </div>
 
       {/* Current Stock */}
-      <div className="bg-slate-900 mt-8 px-4 py-6 rounded-md">
-        <div className="text-2xl sm:text-3xl mb-5 text-center">Current Stock</div>
+      <div className="bg-slate-900 mt-8 px-4 py-6 rounded-md w-full">
+        <div className="text-2xl sm:text-3xl mb-5 text-center text-white">Current Stock</div>
         <ProductList />
       </div>
     </div>
