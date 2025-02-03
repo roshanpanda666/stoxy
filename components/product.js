@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'// Corrected the function name and ensured it always returns an array.
 import Link from 'next/link';
+import DeleteProduct from '@/app/lib/deleteProduct';
 const getProducts = async () => {
     try {
         let response = await fetch("/api/productsapi", {
@@ -52,7 +53,7 @@ const ProductList = () => {
                                 <div className='w-full sm:w-52 mt-2'>{item.brand}</div>
                                 <div className='w-full sm:w-52 mt-2'>{item.price}</div>
                                 <div className='w-full sm:w-52 mt-2'>{item.quantity}</div>  
-                                <div className='w-full sm:w-52 mt-2 border-2 border-cyan-500 hover:border-red-600'>delete</div> 
+                                <DeleteProduct id={item._id} className="text-center"></DeleteProduct>
                                 <div className='w-full sm:w-52 mt-2 border-2 border-cyan-500 hover:border-green-400'><Link href={"/productlist/"+item._id}>edit</Link></div>   
                             </div>
                         </div>

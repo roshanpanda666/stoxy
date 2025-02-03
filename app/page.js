@@ -6,7 +6,7 @@ import React, { useRef, useState } from 'react';
 
 const page = () => {
 
-  let[notify,notifyupdate]=useState("")
+  let[notifyy,notifyupdate]=useState("")
 
 
   const slugref = useRef();
@@ -58,7 +58,7 @@ const page = () => {
 
       <div className='flex justify-center item-center mt-4'>
         <div className='text-green-400'>
-          {notify}
+          {notifyy}
         </div>
       </div>
 
@@ -111,7 +111,7 @@ const page = () => {
         <div className="flex gap-4 w-full sm:w-auto justify-center">
           <button
             onClick={addProduct}
-            className="border-2 border-blue-300 bg-blue-300 text-black w-full sm:w-28 py-2 rounded-md hover:border-green-400 hover:bg-black hover:text-white"
+            className="border-2 border-blue-300 bg-blue-300 text-black w-full sm:w-28 py-2 rounded-md hover:border-green-400"
           >
             Add Product
           </button>

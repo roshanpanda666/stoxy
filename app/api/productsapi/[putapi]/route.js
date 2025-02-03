@@ -22,3 +22,17 @@ export async function GET(request,Content){
     const result= await User.findById(record)
     return NextResponse.json({result,success:true})
 }
+
+export async function DELETE(request,content){
+
+    const productId= content.params.putapi
+    
+    const record={_id:productId}
+    
+    await mongoose.connect(connectionSRT)
+    
+    const result =await User.deleteOne(record)
+    
+     return NextResponse.json({result,success:true})
+    
+    }
