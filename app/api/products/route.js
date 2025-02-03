@@ -8,3 +8,7 @@ const data=await User.find()
 console.log(data);
 return NextResponse.json({result:data})
 }
+
+// ignore this route
+
+// main thing is in productsapi folder
