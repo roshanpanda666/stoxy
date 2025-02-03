@@ -7,4 +7,4 @@ const productModel= new mongoose.Schema({
     quantity: { type: String, required: false }, 
 
 })
-export const User = mongoose.models.crudo || mongoose.model("crudo", productModel);
+export const User = mongoose.models.crudo || mongoose.model("crudo", productModel); 

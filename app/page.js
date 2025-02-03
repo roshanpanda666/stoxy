@@ -2,9 +2,13 @@
 
 import Header from '@/components/header';
 import ProductList from '@/components/product';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 const page = () => {
+
+  let[notify,notifyupdate]=useState("")
+
+
   const slugref = useRef();
   const quantityref = useRef();
   const priceref = useRef();
@@ -28,9 +32,16 @@ const page = () => {
 
     const result = await response.json();
     if (result.success) {
-      alert("Data added successfully");
-      window.location.reload(); // Refresh the current page
-    } else {
+       notifyupdate("product added successfully") // Refresh the current page
+      setTimeout(function(){
+        window.location.reload();
+      },5000)
+     
+      
+      
+      
+    } 
+    else {
       alert("Failed to add data");
     }
   };
@@ -44,6 +55,12 @@ const page = () => {
   return (
     <div className="p-4 sm:p-8">
       <Header />
+
+      <div className='flex justify-center item-center mt-4'>
+        <div className='text-green-400'>
+          {notify}
+        </div>
+      </div>
 
       {/* Search bar with dropdown */}
       <div className="flex flex-col sm:flex-row justify-center items-center mt-5 gap-4">
