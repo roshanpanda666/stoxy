@@ -35,7 +35,7 @@ const page = () => {
        notifyupdate("product added successfully") // Refresh the current page
       setTimeout(function(){
         window.location.reload();
-      },5000)
+      },3000)
      
       
       
