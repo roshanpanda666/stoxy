@@ -4,8 +4,10 @@ import Header from '@/components/header';
 import ProductList from '@/components/product';
 import React, { useRef, useState } from 'react';
 
-const page = () => {
-  let [notifyy, notifyupdate] = useState("");
+const Page = () => {
+  const [notifyy, notifyupdate] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [category, setCategory] = useState("all");
 
   const slugref = useRef();
   const quantityref = useRef();
@@ -45,6 +47,12 @@ const page = () => {
     quantityref.current.value = "";
   };
 
+  const handleSearch = () => {
+    // You can add additional logic here if needed
+    console.log("Search Query:", searchQuery);
+    console.log("Category:", category);
+  };
+
   return (
     <div className="p-4 sm:p-8 max-w-7xl mx-auto">
       <Header />
@@ -55,7 +63,11 @@ const page = () => {
 
       {/* Search bar with dropdown */}
       <div className="flex flex-col sm:flex-row justify-center items-center mt-5 gap-4 w-full">
-        <select className="border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md w-full sm:w-40">
+        <select 
+          className="border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md w-full sm:w-40"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option value="all">All</option>
           <option value="category">Category</option>
         </select>
@@ -64,16 +76,21 @@ const page = () => {
           type="text"
           placeholder="Search..."
           className="flex-grow border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md w-full sm:w-auto"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button className="border-2 border-blue-300 bg-blue-300 text-black px-5 py-2 rounded-md w-full sm:w-auto">
+        <button 
+          className="border-2 border-blue-300 bg-blue-300 text-black px-5 py-2 rounded-md w-full sm:w-auto"
+          onClick={handleSearch}
+        >
           Search
         </button>
       </div>
 
       {/* Add product form */}
       <div className="flex flex-col items-center mt-8 gap-5 w-full">
-        <div className="w-full sm:w-[80%]">
-          <label className="block mb-2 text-white">Slug</label>
+        <div className="w-full sm:w-[90%]">
+          <label className="block mb-2 text-white">Product name</label>
           <input
             ref={slugref}
             type="text"
@@ -81,7 +98,7 @@ const page = () => {
           />
         </div>
 
-        <div className="w-full sm:w-[80%]">
+        <div className="w-full sm:w-[90%]">
           <label className="block mb-2 text-white">Quantity</label>
           <input
             ref={quantityref}
@@ -90,7 +107,7 @@ const page = () => {
           />
         </div>
 
-        <div className="w-full sm:w-[80%]">
+        <div className="w-full sm:w-[90%]">
           <label className="block mb-2 text-white">Price</label>
           <input
             ref={priceref}
@@ -116,12 +133,12 @@ const page = () => {
       </div>
 
       {/* Current Stock */}
-      <div className="bg-slate-900 mt-8 px-4 py-6 rounded-md w-full">
+      <div className="bg-slate-900 mt-8 px-4 py-6 rounded-md w-full sm:w-[90%] mx-auto">
         <div className="text-2xl sm:text-3xl mb-5 text-center text-white">Current Stock</div>
-        <ProductList />
+        <ProductList searchQuery={searchQuery} category={category} />
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;

@@ -9,10 +9,10 @@ const getProducts = async () => {
         });
 
         let data = await response.json();
-        console.log(data);
 
         if (data.success) {
             return data.result; // Expected to be an array of products
+            
         } else {
             return []; // Return an empty array if the API indicates failure
         }
@@ -29,7 +29,8 @@ const ProductList = () => {
         const loadProducts = async () => {
             const products = await getProducts(); // Use corrected function
             setProductList(products); // Set the state to the fetched products
-        };
+           
+        };  
         loadProducts();
     }, []);
     
@@ -55,11 +56,12 @@ const ProductList = () => {
                                 <div className='w-full sm:w-52 mt-2'>{item.quantity}</div>  
                                 <DeleteProduct id={item._id} className="text-center"></DeleteProduct>
                                 <div className='w-full sm:w-52 mt-2 border-2 border-cyan-500 hover:border-green-400'><Link href={"/productlist/"+item._id}>edit</Link></div>   
+                                
                             </div>
                         </div>
                     ))
                 ) : (
-                    <div className='text-center'>No products available</div> // Fallback message
+                    <div className='text-center'>No products</div> // Fallback message
                 )
             }
         </div>
