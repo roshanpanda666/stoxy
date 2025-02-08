@@ -35,7 +35,7 @@ const Page = () => {
       notifyupdate("Product added successfully");
       setTimeout(() => {
         window.location.reload();
-      }, 3000);
+      }, 2000);
     } else {
       alert("Failed to add data");
     }
