@@ -27,18 +27,6 @@ const Page = () => {
     }
   };
 
-  const clearinput = () => {
-    slugref.current.value = "";
-    priceref.current.value = "";
-    quantityref.current.value = "";
-  };
-
-  const handleSearch = () => {
-    // You can add additional logic here if needed
-    console.log("Search Query:", searchQuery);
-    console.log("Category:", category);
-  };
-
   return (
     <div className="p-4 sm:p-8 max-w-7xl mx-auto">
 
