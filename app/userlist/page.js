@@ -48,13 +48,13 @@ const UserList = () => {
           {users.map((user, index) => (
             <div
               key={index}
-              className="border p-4 rounded-md shadow-sm text-white"
+              className="border p-4 rounded-md shadow-sm text-white border-cyan-300  "
             >
               <h3 className="text-lg font-semibold">
                 {user.username} ({user.email})
               </h3>
               <p>Password: {user.password}</p>
-              <p>Buying: {user.buying}</p>
+              <p>buying status: {user.buying}</p>
 
               <div className="mt-2">
                 <h4 className="font-medium">Products:</h4>
