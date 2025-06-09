@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "@/components/header";
 import React, { useEffect, useState } from "react";
 
 const UserList = () => {
@@ -40,6 +41,7 @@ const UserList = () => {
 
   return (
     <div className="p-4">
+      <Header></Header>
       <h2 className="text-xl font-bold mb-4">All Users</h2>
       {users.length === 0 ? (
         <p>No users found.</p>
