@@ -73,12 +73,21 @@ const UserList = () => {
                   <p>No products listed.</p>
                   
                 )}
-                <button
-                    onClick={() => handleDelete(user._id)}
-                    className="mt-2 px-3 py-1 bg-red-500 text-white rounded"
-                    >
-                    Delete
-                    </button>
+                <div className="flex ">
+                  <button
+                      onClick={() => handleDelete(user._id)}
+                      className="mt-2 px-3 py-1 bg-red-500 text-white rounded"
+                      >
+                      Delete
+                  </button>
+                  <button
+                      
+                      className="mt-2 px-3 py-1 bg-cyan-400 text-white rounded"
+                      >
+                      order dispatch
+                  </button>
+                </div>
+                
               </div>
             </div>
           ))}
