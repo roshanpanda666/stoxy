@@ -11,7 +11,7 @@ const UserList = () => {
       const res = await fetch(`/api/deleteuser/${id}`, {
         method: "DELETE",
       });
-  
+
       const result = await res.json();
       if (res.ok) {
         console.log(result.message);
@@ -33,9 +33,9 @@ const UserList = () => {
         },
         body: JSON.stringify({ buying: "order dispatch" }),
       });
-  
+
       const result = await res.json();
-  
+
       if (res.ok) {
         alert(result.message);
         setUsers((prev) =>
@@ -78,27 +78,28 @@ const UserList = () => {
     }
   };
 
-  
-  
-  
-
+  // Fetch users on mount and every 1 second
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const res = await fetch("/api/getalluser");
         const data = await res.json();
-        setUsers(data);
+        setUsers(data.reverse()); // reverse to show newest first
       } catch (error) {
         console.error("Failed to fetch users:", error);
       }
     };
 
-    fetchUsers();
+    fetchUsers(); // initial fetch
+
+    const interval = setInterval(fetchUsers, 1000); // refresh every 1s
+
+    return () => clearInterval(interval); // cleanup
   }, []);
 
   return (
     <div className="p-4">
-      <Header></Header>
+      <Header />
       <h2 className="text-xl font-bold mb-4">All Users</h2>
       {users.length === 0 ? (
         <p>No users found.</p>
@@ -107,41 +108,43 @@ const UserList = () => {
           {users.map((user, index) => (
             <div
               key={index}
-              className="border p-4 rounded-md shadow-sm text-white border-cyan-300  "
+              className="border p-4 rounded-md shadow-sm text-white border-cyan-300"
             >
               <h3 className="text-lg font-semibold">
                 {user.username} ({user.email})
               </h3>
               <p>Password: {user.password}</p>
-              <p>buying status: {user.buying}</p>
+              <p>Buying status: {user.buying}</p>
 
               <div className="mt-2">
                 <h4 className="font-medium">Products:</h4>
                 {user.products && user.products.length > 0 ? (
                   <ul className="list-disc list-inside">
-                    {user.products.map((prod, idx) => (
-                      <li key={idx}>
-                        {prod.brand} - ₹{prod.price} x {prod.quantity}
-                      </li>
-                    ))}
-                    
+                    {[...user.products]
+                      .slice(-3)
+                      .reverse()
+                      .map((prod, idx) => (
+                        <li key={idx}>
+                          {prod.brand} - ₹{prod.price} x {prod.quantity}
+                        </li>
+                      ))}
                   </ul>
                 ) : (
                   <p>No products listed.</p>
-                  
                 )}
+
                 <div className="flex gap-7">
                   <button
-                      onClick={() => handleDelete(user._id)}
-                      className="mt-2 px-3 py-1 bg-red-500 text-white rounded"
-                      >
-                      Delete
+                    onClick={() => handleDelete(user._id)}
+                    className="mt-2 px-3 py-1 bg-red-500 text-white rounded"
+                  >
+                    Delete
                   </button>
                   <button
-                  onClick={() => handleOrderDispatch(user._id)}
-                  className="mt-2 px-3 py-1 bg-cyan-400 text-black rounded"
+                    onClick={() => handleOrderDispatch(user._id)}
+                    className="mt-2 px-3 py-1 bg-cyan-400 text-black rounded"
                   >
-                    Dispatch order
+                    Order Dispatch
                   </button>
 
                   <button
@@ -151,7 +154,6 @@ const UserList = () => {
                     cancel order
                   </button>
                 </div>
-                
               </div>
             </div>
           ))}

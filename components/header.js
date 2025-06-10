@@ -18,7 +18,10 @@ const Header = () => {
       <div className="mr-5 hover:text-white">active users</div>
 
       </Link>
-      <div className="mr-5 hover:text-white">Second Link</div>
+      <Link href={'/new-orders'}>
+      <div className="mr-5 hover:text-white">latest orders</div>
+      </Link>
+      
       <div className="mr-5 hover:text-white">Third Link</div>
   
     </nav>
