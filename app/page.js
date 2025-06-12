@@ -134,7 +134,7 @@ const Page = () => {
 
         <button
           onClick={startObjectDetection}
-          className="bg-yellow-300 text-black px-4 py-2 rounded-md hover:bg-yellow-400"
+          className="bg-blue-300 text-black px-4 py-2 rounded-md hover:bg-blue-400"
         >
           Detect Product using Object Detection
         </button>
