@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tensorflow-models/coco-ssd": "^2.2.3",
+    "@tensorflow/tfjs": "^4.22.0",
     "mongoclient": "^1.0.3",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.4",

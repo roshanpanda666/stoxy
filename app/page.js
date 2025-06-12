@@ -3,6 +3,8 @@
 import Header from '@/components/header';
 import ProductList from '@/components/product';
 import React, { useRef, useState } from 'react';
+import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import "@tensorflow/tfjs";
 
 const Page = () => {
   const [notifyy, notifyupdate] = useState("");
@@ -12,11 +14,12 @@ const Page = () => {
   const slugref = useRef();
   const quantityref = useRef();
   const priceref = useRef();
+  const videoRef = useRef(null);
 
   const addProduct = async () => {
     const slugafter = slugref.current.value;
-    const quantityafter = parseInt(quantityref.current.value, 10); // Convert to number
-    const priceafter = parseFloat(priceref.current.value); // Convert to number
+    const quantityafter = parseInt(quantityref.current.value, 10);
+    const priceafter = parseFloat(priceref.current.value);
 
     let response = await fetch("/api/productsapi", {
       method: "POST",
@@ -48,22 +51,55 @@ const Page = () => {
   };
 
   const handleSearch = () => {
-    // You can add additional logic here if needed
     console.log("Search Query:", searchQuery);
     console.log("Category:", category);
+  };
+
+  const startObjectDetection = async () => {
+    const video = videoRef.current;
+
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then(async (stream) => {
+          video.srcObject = stream;
+          video.play();
+
+          const model = await cocoSsd.load();
+
+          setTimeout(async () => {
+            const predictions = await model.detect(video);
+            if (predictions.length > 0) {
+              const bestPrediction = predictions[0].class;
+              slugref.current.value = bestPrediction;
+              notifyupdate(`Detected: ${bestPrediction}`);
+            } else {
+              notifyupdate("No object detected.");
+            }
+
+            // Stop the camera after detection
+            const tracks = stream.getTracks();
+            tracks.forEach((track) => track.stop());
+          }, 2000);
+        })
+        .catch((err) => {
+          console.error("Error accessing webcam: ", err);
+          notifyupdate("Webcam access denied or error.");
+        });
+    }
   };
 
   return (
     <div className="p-4 sm:p-8 max-w-7xl mx-auto">
       <Header />
 
-      <div className='flex justify-center items-center mt-4'>
-        <div className='text-green-400 text-center'>{notifyy}</div>
+      <div className="flex justify-center items-center mt-4">
+        <div className="text-green-400 text-center">{notifyy}</div>
       </div>
 
       {/* Search bar with dropdown */}
       <div className="flex flex-col sm:flex-row justify-center items-center mt-5 gap-4 w-full">
-        <select 
+        <select
           className="border-2 border-blue-300 bg-black text-white px-3 py-2 rounded-md w-full sm:w-40"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -79,11 +115,28 @@ const Page = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button 
+        <button
           className="border-2 border-blue-300 bg-blue-300 text-black px-5 py-2 rounded-md w-full sm:w-auto"
           onClick={handleSearch}
         >
           Search
+        </button>
+      </div>
+
+      {/* Object Detection Section */}
+      <div className="mt-10 flex flex-col items-center gap-4">
+        <video
+          ref={videoRef}
+          className="w-[300px] h-[200px] border-2 border-white rounded-md"
+          autoPlay
+          muted
+        ></video>
+
+        <button
+          onClick={startObjectDetection}
+          className="bg-yellow-300 text-black px-4 py-2 rounded-md hover:bg-yellow-400"
+        >
+          Detect Product using Object Detection
         </button>
       </div>
 
