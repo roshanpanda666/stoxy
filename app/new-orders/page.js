@@ -123,7 +123,6 @@ const UserList = () => {
                 {user.products && user.products.length > 0 ? (
                   <ul className="list-disc list-inside">
                     {[...user.products]
-                      .slice(-3)
                       .reverse()
                       .map((prod, idx) => (
                         <li key={idx}>
